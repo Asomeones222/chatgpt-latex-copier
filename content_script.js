@@ -24,6 +24,8 @@ const addCopyBtnToLaTeXElements = () => {
   const laTeXElements = Array.from(
     document.querySelectorAll(".katex:not(.copy-bound)")
   );
+  console.debug("Copy", "laTeXElements", laTeXElements);
+
   laTeXElements.forEach((el) => {
     el.classList.add("copy-bound");
     el.style.position = "relative";
@@ -50,29 +52,31 @@ const addCopyBtnToLaTeXElements = () => {
           }, 1500);
         })
         .catch((err) => {
-          console.error("Failed to copy latex: ", err);
+          console.debug("Copy", "Failed to copy latex: ", err);
         });
     });
   });
 };
 
-const init = () => {
-  /** @param {MutationRecord} mutation */
-  const isMutationRelevant = (mutation) => {
-    const addedNodes = Array.from(mutation.addedNodes);
-    return addedNodes.some(
-      (node) => node.nodeType === 1 && node.matches(".katex, .katex *")
-    );
-  };
+/** @param {MutationRecord} mutation */
+const isMutationRelevant = (mutation) => {
+  const addedNodes = Array.from(mutation.addedNodes);
+  // If the node mutated is either a latex element or contains a latex element return true
+  return addedNodes.some(
+    (node) =>
+      node.nodeType === 1 &&
+      (node.matches(".katex, .katex *") || node.querySelector(".katex"))
+  );
+};
 
-  /** @type {MutationCallback} */
-  const observerCallBack = (mutations) => {
-    console.log("Called observer");
-    if (
-      mutations.some((el) => el.type === "childList" && isMutationRelevant(el))
-    )
-      addCopyBtnToLaTeXElements();
-  };
+/** @type {MutationCallback} */
+const observerCallBack = (mutations) => {
+  console.debug("Copy", "Called observer");
+  if (mutations.some((el) => el.type === "childList" && isMutationRelevant(el)))
+    addCopyBtnToLaTeXElements();
+};
+
+const init = () => {
   const observer = new MutationObserver(observerCallBack);
   observer.observe(document.body, { childList: true, subtree: true });
 };

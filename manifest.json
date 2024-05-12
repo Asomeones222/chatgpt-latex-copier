@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ChatGPT LaTeX copier",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Copy LaTeX Equations from ChatGPT. Initial version based on Dustin Rubin's 'Copy ChatGPT LaTeX'",
   "permissions": ["clipboardWrite"],
   "content_scripts": [
