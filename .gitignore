@@ -1,3 +1,2 @@
-content_script-2.js
 *.xpi
-.node-modules
+web-ext-artifacts

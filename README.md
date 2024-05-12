@@ -14,7 +14,7 @@
 
 1. **Download the source code**:
    ```bash
-   git clone https://github.com/yourusername/chatgpt-latex-copier.git
+   git clone https://github.com/asomeones222/chatgpt-latex-copier.git
    ```
 2. **Open your browser's extension page:**
    Firefox: about:addons

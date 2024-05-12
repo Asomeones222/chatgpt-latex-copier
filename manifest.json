@@ -13,6 +13,6 @@
   ],
   "web_accessible_resources": ["assets/*"],
   "icons": {
-    "48": "assets/icon.png"
+    "512": "assets/icon.png"
   }
 }
