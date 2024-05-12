@@ -1,8 +1,8 @@
 const getCopyElement = () => {
   const copyElement = document.createElement("img");
   copyElement.src = chrome.extension.getURL("assets/icons/copy.svg");
-  copyElement.style.width = "28px";
-  copyElement.style.width = "28px";
+  copyElement.style.width = "24px";
+  copyElement.style.height = "24px";
   copyElement.style.position = "absolute";
   copyElement.style.cursor = "pointer";
   copyElement.style.zIndex = "999";
@@ -57,9 +57,20 @@ const addCopyBtnToLaTeXElements = () => {
 };
 
 const init = () => {
+  /** @param {MutationRecord} mutation */
+  const isMutationRelevant = (mutation) => {
+    const addedNodes = Array.from(mutation.addedNodes);
+    return addedNodes.some(
+      (node) => node.nodeType === 1 && node.matches(".katex, .katex *")
+    );
+  };
+
   /** @type {MutationCallback} */
   const observerCallBack = (mutations) => {
-    if (mutations.some((el) => el.type === "childList"))
+    console.log("Called observer");
+    if (
+      mutations.some((el) => el.type === "childList" && isMutationRelevant(el))
+    )
       addCopyBtnToLaTeXElements();
   };
   const observer = new MutationObserver(observerCallBack);
