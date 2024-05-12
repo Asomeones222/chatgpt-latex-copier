@@ -1,5 +1,7 @@
 # ChatGPT LaTeX Copier
 
+![Alt text](/assets/Screenshot_1.png "a title")
+
 ## Description
 
 **ChatGPT LaTeX Copier** is a browser extension that allows users to easily copy LaTeX equations directly from ChatGPT conversations. Initial implementation is based on Dustin Rubin's 'Copy ChatGPT LaTeX'.
@@ -22,7 +24,7 @@
 
 Install the extension and navigate to the ChatGPT website. LaTeX equations will have a visible copy button upon hovering. Click the button to copy equations directly to your clipboard.
 
-You'll get a raw LaTeX string after which you can use Pandora to convert into you preferred format if needed.
+You'll get a raw LaTeX string after which you can use [pandoc](https://pandoc.org/) to convert into you preferred format if needed.
 
 ## Contributing
 
