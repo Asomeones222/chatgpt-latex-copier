@@ -1,7 +1,7 @@
 const getCopyElement = () => {
   const copyElement = document.createElement("img");
   copyElement.classList.add("latex-copy-img");
-  copyElement.src = chrome.extension.getURL("assets/icons/copy.svg");
+  copyElement.src = browser.extension.getURL("assets/icons/copy.svg");
   copyElement.style.width = "24px";
   copyElement.style.height = "24px";
   copyElement.style.position = "absolute";
@@ -45,11 +45,11 @@ const addCopyBtnToLaTeXElements = () => {
       navigator.clipboard
         .writeText(`$$${text}$$`)
         .then(() => {
-          copyElement.src = chrome.extension.getURL(
+          copyElement.src = browser.extension.getURL(
             "assets/icons/copy-success.svg"
           );
           setTimeout(() => {
-            copyElement.src = chrome.extension.getURL("assets/icons/copy.svg");
+            copyElement.src = browser.extension.getURL("assets/icons/copy.svg");
           }, 1500);
         })
         .catch((err) => {
