@@ -1,5 +1,6 @@
 const getCopyElement = () => {
   const copyElement = document.createElement("img");
+  copyElement.classList.add("latex-copy-img");
   copyElement.src = chrome.extension.getURL("assets/icons/copy.svg");
   copyElement.style.width = "24px";
   copyElement.style.height = "24px";
@@ -22,12 +23,12 @@ const getCopyElement = () => {
 const addCopyBtnToLaTeXElements = () => {
   /** @type {HTMLSpanElement[]} */
   const laTeXElements = Array.from(
-    document.querySelectorAll(".katex:not(.copy-bound)")
+    document.querySelectorAll(".katex:not(.latex-copy-bound)")
   );
   console.debug("Copy", "laTeXElements", laTeXElements);
 
   laTeXElements.forEach((el) => {
-    el.classList.add("copy-bound");
+    el.classList.add("latex-copy-bound");
     el.style.position = "relative";
     const copyElement = getCopyElement();
     el.insertAdjacentElement("afterbegin", copyElement);
@@ -76,7 +77,14 @@ const observerCallBack = (mutations) => {
     addCopyBtnToLaTeXElements();
 };
 
+const addCSSStyle = () => {
+  const style = document.createElement("style");
+  style.textContent = `.dark .latex-copy-img{ filter:invert(1); }`;
+  document.head.appendChild(style);
+};
+
 const init = () => {
+  addCSSStyle();
   const observer = new MutationObserver(observerCallBack);
   observer.observe(document.body, { childList: true, subtree: true });
 };
