@@ -1,7 +1,6 @@
 const getCopyElement = () => {
   const copyElement = document.createElement("img");
   copyElement.classList.add("latex-copy-img");
-  copyElement.src = browser.extension.getURL("assets/icons/copy.svg");
   copyElement.style.width = "24px";
   copyElement.style.height = "24px";
   copyElement.style.position = "absolute";
@@ -20,6 +19,26 @@ const getCopyElement = () => {
   return copyElement;
 };
 
+const getLaTeXCopyElement = () => {
+  const laTeXCopyElement = getCopyElement();
+  laTeXCopyElement.src = browser.extension.getURL(
+    "assets/icons/latex-copy.svg"
+  );
+  laTeXCopyElement.title = "Copy raw LaTeX";
+  laTeXCopyElement.style.right = "30px";
+  return laTeXCopyElement;
+};
+
+// MathMl is easier for Word to understand
+const getMathMLCopyElement = () => {
+  const mathMLCopyElement = getCopyElement();
+  mathMLCopyElement.src = browser.extension.getURL(
+    "assets/icons/mathml-copy.svg"
+  );
+  mathMLCopyElement.title = "Copy MathML, suitable for Word";
+  return mathMLCopyElement;
+};
+
 const addCopyBtnToLaTeXElements = () => {
   /** @type {HTMLSpanElement[]} */
   const laTeXElements = Array.from(
@@ -30,31 +49,60 @@ const addCopyBtnToLaTeXElements = () => {
   laTeXElements.forEach((el) => {
     el.classList.add("latex-copy-bound");
     el.style.position = "relative";
-    const copyElement = getCopyElement();
-    el.insertAdjacentElement("afterbegin", copyElement);
 
-    el.addEventListener(
-      "mouseenter",
-      () => (copyElement.style.opacity = "0.7")
-    );
-    el.addEventListener("mouseleave", () => (copyElement.style.opacity = "0"));
+    const laTeXCopyElement = getLaTeXCopyElement();
+    const mathMLCopyElement = getMathMLCopyElement();
+    el.insertAdjacentElement("afterbegin", laTeXCopyElement);
+    el.insertAdjacentElement("afterbegin", mathMLCopyElement);
 
-    copyElement.addEventListener("click", () => {
-      const text = el.querySelector(".katex-mathml annotation").innerHTML;
+    el.addEventListener("mouseenter", () => {
+      laTeXCopyElement.style.opacity = "0.7";
+      mathMLCopyElement.style.opacity = "0.7";
+    });
+    el.addEventListener("mouseleave", () => {
+      laTeXCopyElement.style.opacity = "0";
+      mathMLCopyElement.style.opacity = "0";
+    });
 
-      navigator.clipboard
-        .writeText(`$$${text}$$`)
-        .then(() => {
-          copyElement.src = browser.extension.getURL(
-            "assets/icons/copy-success.svg"
+    laTeXCopyElement.addEventListener("click", () => {
+      const laTeX = el.querySelector(".katex-mathml annotation").innerHTML;
+
+      try {
+        navigator.clipboard.writeText(`$$${laTeX}$$`);
+        laTeXCopyElement.src = browser.extension.getURL(
+          "assets/icons/copy-success.svg"
+        );
+        setTimeout(() => {
+          laTeXCopyElement.src = browser.extension.getURL(
+            "assets/icons/latex-copy.svg"
           );
-          setTimeout(() => {
-            copyElement.src = browser.extension.getURL("assets/icons/copy.svg");
-          }, 1500);
-        })
-        .catch((err) => {
-          console.debug("Copy", "Failed to copy latex: ", err);
-        });
+        }, 1500);
+      } catch (error) {
+        console.debug("Copy", "Failed to copy latex: ", error);
+      }
+    });
+
+    mathMLCopyElement.addEventListener("click", () => {
+      const laTeX = el.querySelector(".katex-mathml annotation").innerHTML;
+      const mathML = temml.renderToString(laTeX, {
+        displayMode: true,
+        annotate: true,
+        xml: true,
+      });
+
+      try {
+        navigator.clipboard.writeText(mathML);
+        mathMLCopyElement.src = browser.extension.getURL(
+          "assets/icons/copy-success.svg"
+        );
+        setTimeout(() => {
+          mathMLCopyElement.src = browser.extension.getURL(
+            "assets/icons/mathml-copy.svg"
+          );
+        }, 1500);
+      } catch (error) {
+        console.debug("Copy", "Failed to copy mathml: ", error);
+      }
     });
   });
 };
