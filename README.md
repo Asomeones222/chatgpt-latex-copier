@@ -12,13 +12,13 @@
 
 ## Installation
 
-1. **Download the source code**:
-   ```bash
-   git clone https://github.com/asomeones222/chatgpt-latex-copier.git
-   ```
-2. **Open your browser's extension page:**
-   Firefox: about:addons
-   Load unpacked extension by selecting the directory you just cloned.
+### Firefox
+
+Install the extension through the [Add-Ons site](https://addons.mozilla.org/en-US/firefox/addon/chatgpt-latex-copier/)
+
+### Chrome
+
+There are no plans to support Chrome, Google's policies regarding privacy and everything else don't encourage me to support their browser. Switch to [Firefox](https://www.mozilla.org/en-US/firefox/new/)! You won't regret it!
 
 ## Usage
 
@@ -28,7 +28,7 @@ You'll get a raw LaTeX string after which you can use [pandoc](https://pandoc.or
 
 ## Contributing
 
-We welcome contributions :D! If you have suggestions or issues, please submit a pull requests to this repository.
+If you have suggestions or issues, please submit a pull requests to this repository :D
 
 ## License
 
