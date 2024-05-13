@@ -9,6 +9,7 @@
 ## Features
 
 - **One-click Copy**: Adds a copy button next to LaTeX elements to simplify the copying process.
+- **Works with Word**: Two buttons will appear on hover, one to copy raw LaTeX, and the other to copy in MathML format which Word understands.
 
 ## Installation
 
@@ -24,7 +25,7 @@ There are no plans to support Chrome, Google's policies regarding privacy and ev
 
 Install the extension and navigate to the ChatGPT website. LaTeX equations will have a visible copy button upon hovering. Click the button to copy equations directly to your clipboard.
 
-You'll get a raw LaTeX string after which you can use [pandoc](https://pandoc.org/) to convert into you preferred format if needed.
+You'll get a raw LaTeX or MathML string after which you can use [pandoc](https://pandoc.org/) to convert into you preferred format if needed.
 
 ## Contributing
 
