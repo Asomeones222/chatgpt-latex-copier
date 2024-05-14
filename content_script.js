@@ -21,9 +21,7 @@ const getCopyElement = () => {
 
 const getLaTeXCopyElement = () => {
   const laTeXCopyElement = getCopyElement();
-  laTeXCopyElement.src = browser.extension.getURL(
-    "assets/icons/latex-copy.svg"
-  );
+  laTeXCopyElement.src = browser.runtime.getURL("assets/icons/latex-copy.svg");
   laTeXCopyElement.title = "Copy raw LaTeX";
   laTeXCopyElement.style.right = "30px";
   return laTeXCopyElement;
@@ -32,7 +30,7 @@ const getLaTeXCopyElement = () => {
 // MathMl is easier for Word to understand
 const getMathMLCopyElement = () => {
   const mathMLCopyElement = getCopyElement();
-  mathMLCopyElement.src = browser.extension.getURL(
+  mathMLCopyElement.src = browser.runtime.getURL(
     "assets/icons/mathml-copy.svg"
   );
   mathMLCopyElement.title = "Copy MathML, suitable for Word";
@@ -69,11 +67,11 @@ const addCopyBtnToLaTeXElements = () => {
 
       try {
         navigator.clipboard.writeText(`$$${laTeX}$$`);
-        laTeXCopyElement.src = browser.extension.getURL(
+        laTeXCopyElement.src = browser.runtime.getURL(
           "assets/icons/copy-success.svg"
         );
         setTimeout(() => {
-          laTeXCopyElement.src = browser.extension.getURL(
+          laTeXCopyElement.src = browser.runtime.getURL(
             "assets/icons/latex-copy.svg"
           );
         }, 1500);
@@ -92,11 +90,11 @@ const addCopyBtnToLaTeXElements = () => {
 
       try {
         navigator.clipboard.writeText(mathML);
-        mathMLCopyElement.src = browser.extension.getURL(
+        mathMLCopyElement.src = browser.runtime.getURL(
           "assets/icons/copy-success.svg"
         );
         setTimeout(() => {
-          mathMLCopyElement.src = browser.extension.getURL(
+          mathMLCopyElement.src = browser.runtime.getURL(
             "assets/icons/mathml-copy.svg"
           );
         }, 1500);
