@@ -31,9 +31,13 @@ You'll get a raw LaTeX or MathML string after which you can use [pandoc](https:/
 
 If you have suggestions or issues, please submit a pull requests to this repository :D
 
+## Acknowledgment
+
+Thanks to the [Temml](https://github.com/ronkok/Temml) team for the awesome tool which is used to convert LaTeX to MathML format
+
 ## License
 
-Distributed under the MIT License.
+Released under terms of the [MIT license](https://mit-license.org/)
 
 ## Finally
 
